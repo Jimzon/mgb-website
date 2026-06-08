@@ -45,9 +45,10 @@
             padding-bottom: 0.75rem;
         }
 
-        /* Nav Text Colors Transition */
+        /* Nav Text Colors Transition (Fixed desktop visibility bugs) */
         .glass-header.scrolled .nav-text { color: #0F172A; }
-        .glass-header.scrolled .nav-link { color: #475569; }
+        .glass-header.scrolled .nav-link a { color: #475569; }
+        .glass-header.scrolled .nav-link a:hover { color: #0F172A; }
         .glass-header.scrolled .burger-line { background-color: #0F172A; }
 
         .hero-split-overlay {
@@ -62,6 +63,11 @@
         #mobile-menu.open {
             transform: translateX(0);
         }
+
+        /* Animated Burger Button into X */
+        #burger-btn.active .burger-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        #burger-btn.active .burger-line:nth-child(2) { opacity: 0; }
+        #burger-btn.active .burger-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
     </style>
 </head>
 <body class="font-sans antialiased text-slate-900 bg-[#F9FAFB]">
@@ -75,13 +81,13 @@
                 <img src="images/mgb-new-logo.png" alt="MGB Solutions UG" class="h-10 lg:h-12 w-auto">
                 <div class="hidden sm:block border-l border-slate-300/30 pl-5">
                     <span class="block font-display font-extrabold text-lg nav-text text-white leading-none tracking-tighter uppercase transition-colors">
-                        MGB  <span class="text-mgb-yellow uppercase">Solutions</span>
+                        MGB <span class="text-mgb-yellow uppercase">Solutions</span>
                     </span>
                     <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.4em] mt-1.5 transition-opacity">Institutional Recruitment</p>
                 </div>
             </a>
 
-            <!-- Desktop Links -->
+            <!-- Desktop Links (Fixed text-white/70 conflict on scroll via styles) -->
             <div class="hidden lg:flex items-center gap-10">
                 <div class="flex gap-10 items-center text-[10px] font-bold uppercase tracking-[0.25em] nav-link text-white/70 transition-colors">
                     <a href="#expertise" class="hover:text-white transition">Expertise</a>
@@ -92,10 +98,10 @@
             </div>
 
             <!-- Burger Button (Mobile Only) -->
-            <button id="burger-btn" class="lg:hidden flex flex-col gap-1.5 z-[110] p-2">
-                <div class="burger-line w-6 h-0.5 bg-white transition-all duration-300"></div>
-                <div class="burger-line w-6 h-0.5 bg-white transition-all duration-300"></div>
-                <div class="burger-line w-6 h-0.5 bg-white transition-all duration-300"></div>
+            <button id="burger-btn" class="lg:hidden flex flex-col gap-1.5 z-[110] p-2 outline-none">
+                <div class="burger-line w-6 h-0.5 bg-white transition-all duration-300 origin-center"></div>
+                <div class="burger-line w-6 h-0.5 bg-white transition-all duration-300 origin-center"></div>
+                <div class="burger-line w-6 h-0.5 bg-white transition-all duration-300 origin-center"></div>
             </button>
         </div>
 
@@ -104,7 +110,7 @@
             <a href="#expertise" class="mobile-nav-link text-white text-lg font-bold uppercase tracking-widest">Expertise</a>
             <a href="#sectors" class="mobile-nav-link text-white text-lg font-bold uppercase tracking-widest">Sectors</a>
             <a href="#process" class="mobile-nav-link text-white text-lg font-bold uppercase tracking-widest">Process</a>
-            <a href="#apply" class="bg-mgb-green text-white px-10 py-4 rounded-sm font-black uppercase text-xs tracking-[0.3em] mt-4">Start Intake</a>
+            <a href="#apply" class="bg-mgb-green text-white px-10 py-4 rounded-sm font-black uppercase text-xs tracking-[0.3em] mt-4 mobile-nav-link">Start Intake</a>
         </div>
     </nav>
 
@@ -125,7 +131,7 @@
                     <h1 class="font-display text-5xl md:text-[5rem] font-extrabold text-white leading-[0.9] tracking-tighter mb-12">
                         Your Future. <br><span class="text-mgb-yellow">Your Germany.</span>
                     </h1>
-                    <p class="text-xl lg:text-2xl text-white/60 mb-14 max-w-xl leading-relaxed font-light mx-auto lg:mx-0">
+                    <p class="text-xl lg:text-2xl text-slate-300 mb-14 max-w-xl leading-relaxed font-light mx-auto lg:mx-0">
                         Visa assistance, <span class="text-white font-medium italic">Ausbildung programs</span>, and direct placement — managed by the licensed experts at MGB Solutions UG.
                     </p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-5">
@@ -160,15 +166,23 @@
                 </div>
             </div>
             <div class="grid gap-6">
+                <!-- Card 1: Direct German Operation -->
                 <div class="p-10 bg-slate-50 border border-slate-100 rounded-[2.5rem] hover:shadow-2xl transition-all group">
                     <div class="w-14 h-14 bg-mgb-green/10 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:bg-mgb-green group-hover:text-white transition-colors">🇩🇪</div>
                     <h4 class="font-bold text-german-slate text-lg mb-3 uppercase tracking-widest text-xs">Direct German Operation</h4>
                     <p class="text-sm text-slate-500 leading-relaxed">Headquartered in Germany, providing real-time employer matching and career assessments.</p>
                 </div>
+                
+                <!-- Card 2: Updated Corporate Commitment (Client Core Text) -->
                 <div class="p-10 bg-slate-50 border border-slate-100 rounded-[2.5rem] hover:shadow-2xl transition-all group">
                     <div class="w-14 h-14 bg-mgb-blue/10 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:bg-mgb-blue group-hover:text-white transition-colors">⚖️</div>
-                    <h4 class="font-bold text-german-slate text-lg mb-3 uppercase tracking-widest text-xs">Transparency & Ethics</h4>
-                    <p class="text-sm text-slate-500 leading-relaxed">Full support for Language Visas and Vocational Training (Ausbildung) with no hidden fees.</p>
+                    <h4 class="font-bold text-german-slate text-lg mb-3 uppercase tracking-widest text-xs">Our Commitment to Integrity</h4>
+                    <p class="text-sm text-slate-700 leading-relaxed font-semibold mb-2">
+                        MGB Solutions is committed to operating with transparency, integrity, and accountability.
+                    </p>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        We communicate openly with our clients and stakeholders, protect personal data, comply with applicable laws and regulations, and uphold the highest ethical standards in all business activities. We strive to foster trust through honest communication, fair practices, and responsible decision making.
+                    </p>
                 </div>
             </div>
         </div>
@@ -181,18 +195,18 @@
             <div class="grid md:grid-cols-3 gap-8 text-left">
                 <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all">
                     <div class="w-16 h-16 bg-mgb-green/10 rounded-3xl flex items-center justify-center text-3xl mb-8 mx-auto">🎓</div>
-                    <h3 class="font-bold text-xl mb-4 text-center uppercase tracking-tight">Ausbildung</h3>
+                    <h3 class="font-bold text-xl mb-4 text-center uppercase tracking-tight text-german-slate">Ausbildung</h3>
                     <p class="text-sm text-slate-500 text-center leading-relaxed italic">Vocational training programs with monthly stipends for international talent entry.</p>
                 </div>
-                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all text-mgb-blue">
+                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all">
                     <div class="w-16 h-16 bg-mgb-blue/10 rounded-3xl flex items-center justify-center text-3xl mb-8 mx-auto">🏥</div>
-                    <h3 class="font-bold text-xl mb-4 text-center uppercase tracking-tight">Healthcare</h3>
+                    <h3 class="font-bold text-xl mb-4 text-center uppercase tracking-tight text-german-slate">Healthcare</h3>
                     <p class="text-sm text-slate-500 text-center leading-relaxed italic">Direct placement for Registered Nurses with B1/B2 language proficiency.</p>
                 </div>
-                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all text-mgb-green">
+                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all">
                     <div class="w-16 h-16 bg-mgb-yellow/10 rounded-3xl flex items-center justify-center text-3xl mb-8 mx-auto">💻</div>
-                    <h3 class="font-bold text-xl mb-4 text-center uppercase tracking-tight">IT & Tech</h3>
-                    <p class="text-sm text-slate-500 text-center leading-relaxed italic text-mgb-green">High-demand roles for Software Engineers and Technology professionals.</p>
+                    <h3 class="font-bold text-xl mb-4 text-center uppercase tracking-tight text-german-slate">IT & Tech</h3>
+                    <p class="text-sm text-slate-500 text-center leading-relaxed italic">High-demand roles for Software Engineers and Technology professionals.</p>
                 </div>
             </div>
         </div>
@@ -206,22 +220,22 @@
                 <div class="border-t border-white/20 pt-10">
                     <p class="text-mgb-yellow font-bold text-[10px] mb-5 uppercase tracking-[0.3em]">Phase 01</p>
                     <h4 class="text-xl font-bold mb-4">Consultation</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed italic">Evaluating profile and German market eligibility.</p>
+                    <p class="text-slate-300 text-xs leading-relaxed italic">Evaluating profile and German market eligibility.</p>
                 </div>
                 <div class="border-t border-white/20 pt-10">
                     <p class="text-mgb-yellow font-bold text-[10px] mb-5 uppercase tracking-[0.3em]">Phase 02</p>
                     <h4 class="text-xl font-bold mb-4">Preparation</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed italic">Documents vetting and language support (A1-B2).</p>
+                    <p class="text-slate-300 text-xs leading-relaxed italic">Documents vetting and language support (A1-B2).</p>
                 </div>
                 <div class="border-t border-white/20 pt-10">
                     <p class="text-mgb-yellow font-bold text-[10px] mb-5 uppercase tracking-[0.3em]">Phase 03</p>
                     <h4 class="text-xl font-bold mb-4">Application</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed italic">Visa processing and matching with corporate partners.</p>
+                    <p class="text-slate-300 text-xs leading-relaxed italic">Visa processing and matching with corporate partners.</p>
                 </div>
                 <div class="border-t border-white/20 pt-10">
                     <p class="text-mgb-yellow font-bold text-[10px] mb-5 uppercase tracking-[0.3em]">Phase 04</p>
                     <h4 class="text-xl font-bold mb-4">Arrival</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed italic">On-ground support and professional integration.</p>
+                    <p class="text-slate-300 text-xs leading-relaxed italic">On-ground support and professional integration.</p>
                 </div>
             </div>
         </div>
@@ -232,22 +246,23 @@
         <div class="max-w-4xl mx-auto px-8 bg-slate-50 p-12 lg:p-24 rounded-[4.5rem] shadow-sm border border-slate-100">
             <div class="text-center mb-16">
                 <h2 class="font-display text-4xl font-extrabold text-german-slate mb-4 uppercase italic tracking-tighter">Intake Portal</h2>
-                <p class="text-slate-400 font-bold uppercase tracking-[0.4em] text-[10px]">Confidential Intake Application</p>
+                <p class="text-slate-500 font-bold uppercase tracking-[0.4em] text-[10px]">Confidential Intake Application</p>
             </div>
             <form class="space-y-10">
-                <div class="grid md:grid-cols-2 gap-10 text-[11px] font-bold tracking-widest uppercase text-slate-400">
+                <div class="grid md:grid-cols-2 gap-10 text-[11px] font-bold tracking-widest uppercase text-slate-500">
                     <div class="space-y-3 group border-b border-slate-200 pb-3 focus-within:border-mgb-green transition-colors">
-                        <label>Legal Identification</label>
-                        <input type="text" placeholder="SURNAME / GIVEN NAME" required class="w-full bg-transparent border-none outline-none text-slate-900 mt-2 placeholder:text-slate-300">
+                        <label class="text-german-slate">Legal Identification</label>
+                        <input type="text" placeholder="SURNAME / GIVEN NAME" required class="w-full bg-transparent border-none outline-none text-slate-900 mt-2 placeholder:text-slate-400 font-medium tracking-normal normal-case">
                     </div>
                     <div class="space-y-3 group border-b border-slate-200 pb-3 focus-within:border-mgb-green transition-colors">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="ADMIN@DOMAIN.DE" required class="w-full bg-transparent border-none outline-none text-slate-900 mt-2 placeholder:text-slate-300">
+                        <label class="text-german-slate">Email Address</label>
+                        <input type="email" placeholder="ADMIN@DOMAIN.DE" required class="w-full bg-transparent border-none outline-none text-slate-900 mt-2 placeholder:text-slate-400 font-medium tracking-normal normal-case">
                     </div>
                 </div>
-                <div class="space-y-3 text-[11px] font-bold tracking-widest uppercase text-slate-400 group border-b border-slate-200 pb-3 focus-within:border-mgb-green transition-colors">
-                    <label>Placement Vertical</label>
-                    <select class="w-full bg-transparent border-none outline-none text-slate-900 mt-2 appearance-none cursor-pointer">
+                <!-- Custom SVG Dropdown arrow implementation for appearance-none -->
+                <div class="space-y-3 text-[11px] font-bold tracking-widest uppercase text-slate-500 group border-b border-slate-200 pb-3 focus-within:border-mgb-green transition-colors relative">
+                    <label class="text-german-slate">Placement Vertical</label>
+                    <select class="w-full bg-transparent border-none outline-none text-slate-900 mt-2 appearance-none cursor-pointer pr-8 font-medium tracking-normal normal-case bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230F172A%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[right_center] bg-no-repeat">
                         <option>Vocational Ausbildung Track</option>
                         <option>Registered Nursing Placement</option>
                         <option>Software Engineering / IT</option>
@@ -275,7 +290,7 @@
                     Email: admin@mgbsolutions.de
                 </p>
             </div>
-            <div class="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest text-slate-300">
+            <div class="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
                 <a href="#" class="hover:text-mgb-green transition">Imprint (Impressum)</a>
                 <a href="#" class="hover:text-mgb-green transition">Privacy (DSGVO)</a>
                 <p class="pt-10 border-t border-slate-100 italic tracking-[0.3em]">© 2026 MGB Solutions UG.</p>
@@ -297,20 +312,21 @@
             }
         });
 
-        // Mobile Menu Slide-out Logic
+        // Mobile Menu Slide-out & Burger X-Rotation Logic
         const burgerBtn = document.getElementById('burger-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
         burgerBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('open');
-            // Change burger color if needed when menu is open
+            burgerBtn.classList.toggle('active');
         });
 
         // Close menu on link click
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('open');
+                burgerBtn.classList.remove('active');
             });
         });
     </script>
